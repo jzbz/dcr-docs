@@ -104,7 +104,7 @@ dcrdata is an index, not a validating node: an instance shows whatever its own `
 | Raw block and header endpoints return a hex string | They return `{"height":…,"hash":"…","hex":"…"}` |
 | `/stake/pool/full` returns an object with a `tickets` key | It returns a bare JSON array of ticket hashes |
 
-## Worked example: a block's subsidy split
+## Worked example: A block's subsidy split
 
 `/api/block/<HEIGHT>/subsidy` computes a block's subsidy from the consensus rules, which makes it a quick check of the current 1/89/10 split. For block 1,133,575:
 

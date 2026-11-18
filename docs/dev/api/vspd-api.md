@@ -234,7 +234,7 @@ Changes the preferences of a registered ticket. Request fields: `timestamp`, `ti
 
 Agenda ids are checked against the deployments of the newest vote version in the `chaincfg` package that `vspd` was built with. With vspd 1.5.0 on mainnet that is vote version 11, whose only agenda is `maxtreasuryspend`; an id from an older version is rejected. Send more than three treasury entries as several `setvotechoices` calls with increasing timestamps; because entries merge, the stored policy accumulates.
 
-## Two-way accountability: signatures
+## Two-way accountability: Signatures
 
 Both sides sign everything, so each can later prove what the other said: the owner can show that the VSP acknowledged a paid fee and specific preferences, and the VSP can show which preferences the owner actually sent. `vspd` stores the signed `setaltsignaddr`, `payfee` and `setvotechoices` requests and responses as that evidence. Store your side too if you want to be able to use it.
 
@@ -254,7 +254,7 @@ Both sides sign everything, so each can later prove what the other said: the own
 
 `vspd` generates its key pair once, when its database is created, and never changes it, so a key change is a reason to stop. Fetching `pubkey` from `vspinfo` on first contact is trust on first use; `dcrwallet` instead requires it in its `vsp.pubkey` option. JSON error bodies are signed too, but the plain-text errors from middleware or a proxy are not.
 
-### Worked example: check a ticket by hand
+### Worked example: Check a ticket by hand
 
 This reads the status of one of your tickets with `dcrctl` and `curl`, then checks the VSP's signature. `ticketstatus` changes nothing, so it is a safe call to try. You need `dcrctl` configured for both your wallet and a `dcrd` RPC server (`decoderawtransaction` is a `dcrd` method; `dcrwallet` does not provide it).
 

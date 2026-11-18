@@ -234,7 +234,7 @@ OP_ENDIF
 
 A spends with `<sig A> OP_1 <redeem script>`. B spends with `<sig B> OP_0 <redeem script>` in a version 2 transaction with input sequence 144 or more; in the engine, version 1, sequence 143 or sequence 0xffffffff all fail. dcrwallet's `createrawtransaction` builds only version 1 transactions, so CSV spends need your own transaction code.
 
-### Example: the DCRDEX swap contract
+### Example: The DCRDEX swap contract
 
 DCRDEX atomic swaps use a hash time-locked contract (HTLC) in P2SH, built by `MakeContract` in [`dex/networks/dcr/script.go`](https://github.com/decred/dcrdex/blob/v1.0.6/dex/networks/dcr/script.go) (Bison Wallet 1.0.6). It is always 97 bytes:
 
@@ -281,7 +281,7 @@ Most failures come from porting Bitcoin scripts byte for byte:
 
 The rest is about keys and time. Nothing can unlock a CLTV or CSV lock early, and a mistyped value can lock funds for years. Lose a redeem script and its outputs are unspendable: nothing on chain reveals it until the first spend.
 
-## Standardness: which scripts relay
+## Standardness: Which scripts relay
 
 Consensus accepts any script that ends true; dcrd's mainnet relay policy, which its block templates follow, is narrower. Its transaction-level limits (size, fee, dust) are on [Transactions for builders](transactions.md). The limits on scripts:
 

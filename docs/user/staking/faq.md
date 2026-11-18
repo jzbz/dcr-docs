@@ -127,7 +127,7 @@ It is 8,192 × 5: the network parameter `TicketPoolSize` times the five tickets 
 
 The real pool drifts above and below the target, and the ticket price algorithm ([DCP-0001](https://github.com/decred/dcps/blob/master/dcp-0001/dcp-0001.mediawiki)) pushes it back. At each adjustment it scales the price by two things: how much the pool, counting immature tickets, grew or shrank since the last adjustment, and how far that count is from its 42,240 target (40,960 live plus 1,280 immature). dcrdata shows the current figure as **Ticket Pool Size**. See [Ticket price, rewards and costs](ticket-price-and-rewards.md).
 
-## My restored wallet shows tickets without VSP status: what now?
+## My restored wallet shows tickets without VSP status: What now?
 
 Your tickets are safe. They are on the blockchain, and a VSP keeps voting any ticket whose fee it has received, whatever your wallet shows. What a restore from seed loses is the wallet's own record of which VSP each ticket uses. Without that record the wallet cannot show the fee status or send changed vote choices to the VSP.
 

@@ -115,7 +115,7 @@ Forwarding nodes charge a fee made of a fixed part and a part proportional to th
 
 Payments are onion-routed: a forwarding node learns the amount and its neighbors on the route, not where the payment starts or ends.
 
-## Liquidity: what you can send and receive
+## Liquidity: What you can send and receive
 
 Each channel's capacity is split between the two sides, and the split moves with every payment. The part on your side is your **outbound liquidity**: what you can send. The part on the other side is your **inbound liquidity**: what you can receive. A channel you fund yourself starts with everything on your side, so at first you can send but not receive.
 

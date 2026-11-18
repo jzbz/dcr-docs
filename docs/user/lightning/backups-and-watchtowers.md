@@ -193,7 +193,7 @@ You need the tower's ID (its public key, which differs from its operator's Light
 
 ## Troubleshooting
 
-### Restore fails: backup is for a different wallet or account
+### Restore fails: Backup is for a different wallet or account
 
 Decrediton reports "SCB restore failed due to backup file being for a different wallet, account or the file being damaged" and removes the half-created Lightning wallet. Start again and choose another account under **Use Existing Wallet Account**. On the command line, `restorechanbackup` prints `unable to unpack chan backup`; after `create --multi_file` the same error appears in the `dcrlnd` log and `dcrlnd` stops. Check that you restored the right seed.
 

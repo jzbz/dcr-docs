@@ -146,7 +146,7 @@ The vote lasts 2,016 to 4,032 blocks (about 7 to 14 days), as set by the adminis
 
 If it is rejected, its comments lock. A large yes share suggests a revised proposal could pass; a resubmission is a new proposal and uses a new credit.
 
-## 7. After approval: deliver, report, get paid
+## 7. After approval: Deliver, report, get paid
 
 An approved funding proposal becomes **Active**. An administrator later marks it **Completed** when the work is done, or **Closed** if the author stops delivering. Either one ends billing.
 

@@ -31,7 +31,7 @@ Each ticket gives you a say on consensus rule changes, treasury spends and Polit
 
 For agendas and treasury spends, clicking sets a standing instruction rather than casting a vote. When the lottery draws one of your tickets, the voting wallet writes the choices in force at that moment into the vote transaction. A missed ticket records nothing.
 
-## With a VSP: your choices travel to it
+## With a VSP: Your choices travel to it
 
 A VSP holds your tickets' voting rights, so its wallet builds the votes ([Voting service providers](../staking/vsps.md) explains the arrangement). Your wallet keeps it informed:
 
@@ -235,7 +235,7 @@ Bison Wallet 1.0.6 cannot vote on proposals. Politeia voting arrives in Bison Wa
 
     `politeiavoter` must keep running, with Tor available, until the last vote is sent. Votes not yet sent when it stops are not cast; running the same command again sends only the tickets that have not voted. Without `--voteduration` it spreads the votes over the remaining time minus 12 hours (`--hoursprior`), and it refuses to start when that leaves less than 24 hours; then set a shorter duration such as `--voteduration=6h`. `--trickle` requires `--proxy`.
 
-## Solo voters: set choices on every voting wallet
+## Solo voters: Set choices on every voting wallet
 
 Without a VSP, your voting wallets build the votes, so set agenda and treasury choices on each of them, the same way on all. Choices set only in a separate purchasing wallet have no effect, and if two voting wallets differ, a ticket votes with whichever wallet's vote is mined. Proposal votes still come from the wallet that holds the commitment keys, usually the purchasing wallet. [Vote without a VSP](../staking/solo-voting.md) covers the setup.
 

@@ -22,7 +22,7 @@ A block is a batch of transactions added to the shared ledger. Decred's consensu
 
 Think of miners as drafting each page of the ledger, and ticket holders as signing off on a page before the next one can be written. Miners cannot skip the sign-off, and stakeholders cannot write pages themselves.
 
-## Proof of work: miners compete to propose a block
+## Proof of work: Miners compete to propose a block
 
 A miner gathers waiting transactions and the latest votes into a candidate block, then hashes its header over and over until the result falls below a target. Finding that hash takes a great deal of computation. Checking it takes almost none, so every node can confirm the work was done.
 
@@ -31,7 +31,7 @@ A miner gathers waiting transactions and the latest votes into a candidate block
 
 Proof of work decides who proposes a block and makes rewriting history expensive. On Decred it does not, on its own, decide which blocks the chain keeps. [Mining Decred](../run/mining.md) covers the miner's side.
 
-## Proof of stake: five live tickets are drawn to vote on each block
+## Proof of stake: Five live tickets are drawn to vote on each block
 
 To get a ticket, a holder locks an amount of DCR called the **ticket price** (also called stake difficulty). The price adjusts every 144 blocks to steer the pool toward about 40,960 tickets. After a 256-block wait (about 21 hours) the ticket becomes **live** and joins the pool.
 

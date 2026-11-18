@@ -174,7 +174,7 @@ The approval has no limit: the swap contract may move any amount of that token f
 
 Privacy (StakeShuffle mixing) is available only in the native Decred wallet. Staking through a VSP and vote preferences (**Set Votes**) appear in the Decred wallet panel for the native wallet and for an external `dcrwallet` connected to its own `dcrd` (not one running in SPV mode). Mix an external `dcrwallet` through its own settings. See [Mix your DCR](../privacy/mix-your-dcr.md) and [Stake with Decrediton or Bison Wallet](../staking/stake.md).
 
-## Back up: what the app seed restores
+## Back up: What the app seed restores
 
 | Wallet | Restored by the app seed | Also keep |
 |---|---|---|

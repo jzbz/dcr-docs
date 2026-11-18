@@ -603,7 +603,7 @@ Two things to get right:
 - **Record the highest index you hand out.** A restored `dcrwallet` stops scanning a branch after 20 unused addresses in a row (its `gaplimit` default, a wallet setting, not a consensus rule), so it must be told to watch further if more issued addresses might go unpaid ([Keys, addresses and seeds](../protocol/keys-and-addresses.md)).
 - **Derive private keys the same way, and keep them away from the account key.** To sign for a derived address, use `Child(branch)` then `Child(index)` on the account's extended private key, not `ChildBIP32Std`, which can give different keys below a private key, and pass `SerializedPrivKey()` to the key lookup; it can be shorter than 32 bytes, which the signing code accepts. Anyone holding the extended public key and one private key of the same account can compute every private key in it.
 
-## Alternative: let dcrwallet fund and sign
+## Alternative: Let dcrwallet fund and sign
 
 If `dcrwallet` already holds the funds, let it choose the outputs to spend, derive a change address, sign and record the spend. You still build the outputs, so your code controls what is paid. The JSON-RPC sequence is:
 

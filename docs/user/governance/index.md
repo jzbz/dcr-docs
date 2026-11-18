@@ -56,7 +56,7 @@ Decred has no company or foundation that decides its rules or its budget. Those 
     - Money leaves the treasury only through a treasury spend that ticket holders approve on chain. Funding is therefore voted on twice: once on the proposal, once on the payment.
     - Rule changes ship dormant in the node software and switch on by themselves only if tickets vote for them.
 
-## One credential: the ticket
+## One credential: The ticket
 
 A **ticket** is bought by locking DCR at the current ticket price (also called stake difficulty). The locked DCR comes back when the ticket votes, or when it is revoked after missing its vote or expiring. [How staking works](../staking/index.md) covers the details.
 
@@ -144,7 +144,7 @@ Step by step:
 
 A successful vote therefore takes at least 16,128 blocks (about eight weeks) from the start of voting to activation.
 
-### Worked example: the maxtreasuryspend vote
+### Worked example: The maxtreasuryspend vote
 
 The latest mainnet agenda as of 2026, `maxtreasuryspend` ([DCP-0013](https://github.com/decred/dcps/blob/master/dcp-0013/dcp-0013.mediawiki)), set a new limit on treasury spending. Its voting interval ran from block 1,036,288 to block 1,044,351.[^tally]
 

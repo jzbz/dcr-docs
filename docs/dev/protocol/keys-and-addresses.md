@@ -159,7 +159,7 @@ Payments to addresses more than 20 past the last used one can be missed by a res
 
 [Integrate DCR into an exchange or service](../integrate/exchange.md) covers issuing a fresh address per deposit with `ignore` and finding those addresses again after a restore.
 
-### Worked example: the all-zero seed on testnet
+### Worked example: The all-zero seed on testnet
 
 Computed from the all-zero seed with `udb.HDKeysFromSeed` from `dcrwallet` 2.1.7 and dcrd's `hdkeychain`, for checking an implementation. Never send funds to them.
 

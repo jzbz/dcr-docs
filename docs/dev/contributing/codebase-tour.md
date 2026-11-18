@@ -139,7 +139,7 @@ A `mempool.RuleError` wraps either a mempool `ErrorKind` or a `blockchain.RuleEr
 
 Each numbered rule box in the whitepaper names the `dcrd` file and function that enforces it, and the [index of consensus rules](../../whitepaper/B-rule-index.md#ch:rule-index) lists every box. [Where `dcrd` and the whitepaper disagree, `dcrd` is correct](../../whitepaper/02-conventions.md#conv:reference).
 
-### Worked example: from a rule box to its tests
+### Worked example: From a rule box to its tests
 
 Take the rule "Minimum number of votes" in the whitepaper's [context-free header rules](../../whitepaper/08-staking.md#sec:staking-header-sanity): at or above stake validation height, a header's `Voters` must be at least 3. Its source line reads `internal/blockchain/validate.go · checkBlockHeaderSanity`.
 
@@ -204,7 +204,7 @@ flowchart LR
 
 Logging works as in `dcrd`, with tags such as `WLLT`, `SYNC`, `TKBY` and `VSPC`.
 
-### Worked example: a vote crosses both repositories
+### Worked example: A vote crosses both repositories
 
 With `--enablevoting` in RPC mode:
 
@@ -221,7 +221,7 @@ Light mode has no source of these notifications, so `dcrwallet` refuses `--spv` 
 - **A gRPC change:** edit `rpc/api.proto`, regenerate with `rpc/regen.sh`, and implement it in `internal/rpc/rpcserver/server.go`.
 - **A database change:** a new version and upgrade function in `wallet/udb/upgrades.go`.
 
-## Tests: what covers what
+## Tests: What covers what
 
 [Contributing to Decred software](index.md) explains how to run tests and what continuous integration (CI) checks. For `dcrd`:
 

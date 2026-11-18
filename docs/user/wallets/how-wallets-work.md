@@ -117,7 +117,7 @@ A Decred wallet has up to three secrets; confusing them can cost you your funds.
 !!! danger "Your seed is the only key that matters"
     Anyone who sees your seed can take all your DCR, and no one can reverse it. Keep it offline, on paper or metal, and type it only into the restore screen of an official Decred wallet. No genuine support person will ever ask for it.
 
-### Bison Wallet: the app password and the app seed
+### Bison Wallet: The app password and the app seed
 
 Bison Wallet holds wallets for several assets plus your accounts on DCRDEX, Decred's decentralized exchange, so it uses two secrets of its own. The **app seed** (15 words in new installations, 128 hexadecimal characters in older ones) restores your DCRDEX accounts, fidelity bonds and every built-in wallet, including the DCR wallet. The **app password** unlocks the app and approves sends, orders and bonds, like a private passphrase for every built-in wallet at once; if you forget it, the app seed lets you set a new one.
 

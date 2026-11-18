@@ -24,7 +24,7 @@ Unlike a mining pool, a VSP pools no rewards: your ticket is drawn as often as i
 !!! note
     VSPs were formerly called "stake pools" and ran different software. Today's VSPs run `vspd`. See [What changed](../reference/whats-changed.md) if you are returning to Decred.
 
-## What you hand over: only the right to vote
+## What you hand over: Only the right to vote
 
 A ticket has separate outputs for separate jobs, and the consensus rules keep them apart. The diagram shows how voting rights and money take different paths:
 

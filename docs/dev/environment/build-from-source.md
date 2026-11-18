@@ -122,7 +122,7 @@ flowchart LR
     Q -->|"yes"| L["Your checkout:<br>../dcrd/rpc/jsonrpc/types"]
 ```
 
-### Example: a dcrctl that knows your new RPC
+### Example: A dcrctl that knows your new RPC
 
 `dcrctl` learns RPC methods from the types registered by `dcrd` and `dcrwallet`, so a development build only needs those modules swapped in:
 

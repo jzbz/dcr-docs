@@ -80,7 +80,7 @@ When N+1 disapproves N:
 
 The decision belongs to block N+1 alone. A sibling of N+1 on another branch may decide differently, and a reorganization that replaces N+1 can reverse it.
 
-### Worked example: a deposit goes back to the mempool
+### Worked example: A deposit goes back to the mempool
 
 The heights and amounts below are examples. A customer sends 25 DCR to an exchange in transaction T, and T is mined in block 1,060,000.
 

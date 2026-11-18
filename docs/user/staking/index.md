@@ -125,7 +125,7 @@ Your wallet broadcasts the ticket purchase and it waits for a miner to include i
 
 Once mined, the ticket is immature for 256 blocks. It cannot be drawn yet. A broadcast ticket purchase cannot be reliably cancelled, and once it is mined the transaction fee you paid to buy it will not come back.
 
-### Live: drawn at random
+### Live: Drawn at random
 
 After 256 blocks the ticket joins the **live ticket pool**. After every block, each node draws 5 tickets from the pool, using a deterministic calculation from that block's header and the set of live tickets, so every node gets the same winners and miners cannot cheaply steer the draw.[^lottery] Every live ticket has the same chance in every draw, however old it is and however many tickets its owner holds.
 
@@ -141,13 +141,13 @@ With the pool at its target of 40,960 tickets, a ticket has a 1 in 8,192 chance 
 
 These figures assume the pool is exactly at its target. The real pool size moves around the target; the **Ticket Pool Size** on dcrdata shows it live. A larger pool means longer waits, a smaller pool shorter ones.
 
-### Voted: price plus reward, spendable after 256 blocks
+### Voted: Price plus reward, spendable after 256 blocks
 
 When the ticket is drawn, the wallet holding its voting rights broadcasts a vote, and the next block includes it. The vote returns the ticket price plus the vote reward to your commitment address. Each vote earns one fifth of the 89% of the block subsidy set aside for voters (17.8% of the subsidy of the block it votes on), whether or not all five votes make it into the block; [Ticket price, rewards and costs](ticket-price-and-rewards.md) explains how big that is.
 
 The returned DCR stays immature for another 256 blocks (about 21 hours) before you can spend it, the same rule that applies to newly mined coins.
 
-### Missed or expired: revoked automatically, price returned
+### Missed or expired: Revoked automatically, price returned
 
 A ticket can end without voting in two ways:
 
@@ -161,7 +161,7 @@ Either way, the ticket is **revoked**: a revocation transaction returns the tick
 
 Before DCP-0009, wallets had to revoke missed and expired tickets themselves. Old guides that tell you to click a revoke button describe that retired step; [What changed](../reference/whats-changed.md) lists the others.
 
-## Worked example: how long your DCR is locked
+## Worked example: How long your DCR is locked
 
 Suppose a ticket purchase is mined in block 1,200,000 (an example height). The ticket is immature until block 1,200,256 and can be drawn from the lottery that block runs, so its earliest possible vote is in block 1,200,257. Whatever happens next, the returned DCR needs 256 more blocks before you can spend it.
 

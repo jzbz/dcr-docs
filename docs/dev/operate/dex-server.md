@@ -128,7 +128,7 @@ adminsrvon=1
 
 `./dcrdex --help` lists every option, including cancellation and penalty rules; defaults are in [`server/cmd/dcrdex/config.go`](https://github.com/decred/dcrdex/blob/v1.0.6/server/cmd/dcrdex/config.go). The bundled `sample-dcrdex.conf` gives older values for some.
 
-### TLS: self-signed or issued
+### TLS: Self-signed or issued
 
 With no certificate files, `dcrdex` generates a self-signed pair on first start, naming `localhost`, the machine's addresses and any `altdnsnames`. Every trader must then load your `rpc.cert` into Bison Wallet, and load it again if it changes. A certificate from a public certificate authority, set with `rpccert` and `rpckey`, needs no file; restart after renewing it. The admin API uses the same pair.
 
@@ -263,7 +263,7 @@ The full list is in [`server/admin/server.go`](https://github.com/decred/dcrdex/
 - **Pre-paid bonds** let a trader you invite start without posting a bond. `/prepaybonds?n=5&days=90` returns five single-use codes, each worth one tier for 90 days. The trader chooses **Use a pre-paid bond** in Bison Wallet's bond step and enters the code under **Code**.
 - **Change a market:** suspend it with `persist=false`, edit `markets.json`, validate, and restart.
 
-### dexadm: a browser front end
+### dexadm: A browser front end
 
 `server/cmd/dexadm` wraps the same API in a local web page with a section for each task (**View Config**, **Assets**, **List Accounts**, **Account**, **Broadcast Message**, **Markets**, **Generate Pre-paid Bonds**). Build it with `go build` in that directory and create `~/.dexadm/dexadm.conf`:
 

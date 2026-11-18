@@ -61,7 +61,7 @@ The smallest unit of DCR is the *atom*: 1 DCR = 100,000,000 atoms.
 
 [DCR supply and issuance](supply-and-issuance.md) covers the schedule and the first-block allocation in full.
 
-## Tickets: one credential for staking and every vote
+## Tickets: One credential for staking and every vote
 
 You take part by buying a ticket: a transaction that locks DCR until the ticket votes.
 
@@ -74,7 +74,7 @@ A ticket votes only if a wallet is online when it is drawn, so most holders use 
 
 The same vote carries the holder's choices on open rule changes and treasury spends, and the same ticket is the voting credential on Politeia, so staking and governance are one activity. [How staking works](../staking/index.md) covers tickets in detail.
 
-## Self-funding: the decentralized treasury
+## Self-funding: The decentralized treasury
 
 Ten percent of every block's subsidy goes to the treasury, and anyone can add to it. Since 2021 the treasury has not been an address someone holds keys to; it is a balance tracked by the consensus rules, and coins leave it only through a *treasury spend* (TSPEND):
 
@@ -98,7 +98,7 @@ Tickets decide four kinds of question. Three are enforced by the consensus rules
 
 On Politeia, at proposals.decred.org, anyone can propose work or a policy, discuss it in public and put it to a ticket vote; administrators can remove spam, but only in a way the author can prove. A rule change is written up as a Decred Change Proposal (DCP), shipped dormant in the node software, and switched on only if the vote passes. [How Decred is governed](../governance/index.md) maps all four.
 
-## Built in: privacy, trading and Lightning
+## Built in: Privacy, trading and Lightning
 
 Three features that Bitcoin and many other cryptocurrencies leave to third-party tools are part of Decred's own software.
 

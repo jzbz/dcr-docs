@@ -352,7 +352,7 @@ Check that you compared the line for the exact file you downloaded: `arm64` and 
 
 GnuPG is not installed, or the terminal was opened before the installation finished. Install it as in step 1, close the terminal, open a new one, and run `gpg --version` again.
 
-## Going further: reproducible builds
+## Going further: Reproducible builds
 
 The command-line suite and Bison Wallet archives and the dcrinstall executables are built by Decred's [release tool](https://github.com/decred/release), which is designed for reproducible builds: building the same source with the same Go version should give byte-identical files, with the same hashes as the signed manifest, so anyone can check the published files independently. [Releases and reproducible builds](../../dev/contributing/releases.md) shows how to rebuild a release and compare it.
 

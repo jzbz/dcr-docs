@@ -104,7 +104,7 @@ Try two fixes, in this order:
 1. **Rescan.** A rescan reads the whole blockchain again for your addresses, without downloading it again.
 2. **Discover address usage with a higher gap limit.** The wallet stops looking for addresses after 20 unused ones in a row, the default *gap limit* (a wallet default, not a network rule). Coins sent to an address beyond that gap stay invisible until you raise it.
 
-!!! note "Example: why a payment can stay invisible"
+!!! note "Example: Why a payment can stay invisible"
     Your wallet used addresses 0 to 4. You then generated 31 addresses for an invoice tool (5 to 35), and a payment arrived at address 35. After a restore, the wallet checks addresses 5 to 24, finds them all unused, and stops: address 35 is never checked. Discovering again with a gap limit of 40 checks up to address 44, finds the payment, and keeps going from there.
 
 === "Decrediton"

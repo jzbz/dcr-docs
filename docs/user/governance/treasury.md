@@ -45,7 +45,7 @@ Both kinds of credit count in the balance only after 256 blocks (about 21 hours)
 !!! note "The legacy address still exists"
     Activating the new treasury moved no coins from the old address, which dcrdata labels **Legacy Decred Treasury**. Its balance is not part of the on-chain account, its spending is not voted on, and its funds can reach the account only through treasury adds.
 
-## How money leaves: treasury spends
+## How money leaves: Treasury spends
 
 The diagram shows the whole flow: two sources fill the account, and one gated path, the treasury spend, empties it.
 
@@ -83,7 +83,7 @@ Treasury spends can be mined only in a block whose height is a multiple of the *
 
 At each 288th block, every node checks each open spend against the votes cast so far. Because remaining votes count as potential no votes, a spend is mined early only when no later votes could change the result. A spend that has not passed by the end of its window can never be mined; there is no separate rejection step.
 
-### Worked example: a spend from November 2026
+### Worked example: A spend from November 2026
 
 The latest treasury spend at the time of writing was mined at block 1,130,112 on 6 November 2026.[^example]
 
@@ -148,7 +148,7 @@ A treasury spend does not say on chain what it pays for. That link is made off c
 
 Funding is therefore voted on twice, and only the second vote is enforced by the consensus rules.
 
-## Your say: treasury voting choices
+## Your say: Treasury voting choices
 
 Your wallet abstains on every treasury spend unless you tell it otherwise. You can set two kinds of choice:
 

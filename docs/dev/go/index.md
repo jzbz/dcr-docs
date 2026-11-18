@@ -168,7 +168,7 @@ Decred modules follow Go's semantic import versioning:
 !!! warning "Default branches are ahead of the release"
     On `dcrd`'s `master` (2.2.0-pre), `addrmgr/v4`, `peer/v4`, `rpcclient/v9` and `rpc/jsonrpc/types/v5` exist only as source: they have no release tag, and the root module reaches them through `replace` directives. Code written against them will not build from tagged versions. Build against the versions on this page unless you are contributing to `dcrd` itself.
 
-### Example: decode a testnet address
+### Example: Decode a testnet address
 
 This program imports two modules and shows the path-versus-package-name rule. Save it as `main.go` in an empty directory:
 

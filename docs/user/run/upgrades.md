@@ -183,7 +183,7 @@ For the command-line suite, **stop the programs that depend on others first, sta
 
 Operators of VSPs, exchanges, pools and DEX servers have more to coordinate: see [Operating Decred infrastructure](../../dev/operate/index.md).
 
-## 2.1.7 spend safeguards: when a node stops on purpose
+## 2.1.7 spend safeguards: When a node stops on purpose
 
 In response to what its notes call "the previous inflation bug", 2.1.7 added checks for transaction spends that should never be possible. If one fires, `dcrd` shuts down rather than carry on in a possibly unsafe state. You are unlikely ever to see this. If you do:
 

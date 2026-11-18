@@ -76,7 +76,7 @@ The [DCR supply and issuance](../start/supply-and-issuance.md) page explains the
 | Chance of expiring | About 0.7% (fewer than 1 in 100) | The odds that a ticket is never chosen, with the pool at its target size. | Derived · [Tickets](../../whitepaper/01-intro.md#sec:intro-tickets) |
 | Vote and revocation maturity | 256 blocks (about 21 hours) | After a ticket votes or is revoked, the returned DCR can be spent only after 256 more blocks. | Consensus · [Maturity of vote and revocation outputs](../../whitepaper/12-treasury.md#sec:treasury-stake-maturity) |
 
-### Worked example: how long a ticket locks your DCR
+### Worked example: How long a ticket locks your DCR
 
 The diagram shows a ticket's path from the block that mines it to spendable funds, through the immature, live, voted, missed, expired and revoked states, with the block counts that decide each step.
 

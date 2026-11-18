@@ -165,7 +165,7 @@ Decred transactions carry no type field. Classify them from their structure with
 - **Revocations are automatic.** Since the `autorevocations` agenda (DCP-0009), miners create the revocation for every missed or expired ticket.
 - **`dcrwallet`'s own labels are incomplete.** In `listtransactions`, `txtype` is only `regular`, `ticket`, `vote` or `revocation`, and `category` is `immature` only for coinbase outputs, so a treasury spend shows as `regular` and an immature vote payout as `receive`. The gRPC `TransactionType` enum has no treasury types either. Apply the maturity rules yourself.
 
-## 7. Optional: stake through a VSP
+## 7. Optional: Stake through a VSP
 
 A VSP votes tickets on its owner's behalf. It holds only the ticket's voting key, never funds, so any wallet that can build tickets can stake this way, light wallets included. [vspd API](../api/vspd-api.md) gives the request sequence (`vspinfo`, `feeaddress`, `payfee`, `ticketstatus`) and every field. The points implementers get wrong with `vspd` 1.5.0 (API v3):
 

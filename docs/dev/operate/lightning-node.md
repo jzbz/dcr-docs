@@ -91,7 +91,7 @@ dcrd.rpcpass = <DCRD_RPCPASS>
 
 `<ALIAS>` is a public name of up to 32 bytes (32 ASCII characters). `<DCRD_RPCUSER>` and `<DCRD_RPCPASS>` are the values in `dcrd.conf`. Set them explicitly: when they are missing, `dcrlnd` 0.8.1 looks for a `dcrd.conf` in the directory it was started from, which usually fails with `unable to load RPC credentials for dcrd`. `dcrinstall` already writes a `dcrlnd.conf` with these two values filled in. Keep the file readable only by the `dcrlnd` user (`chmod 600`), since the password gives full RPC access to `dcrd`. `dcrd.rpccert` defaults to `rpc.cert` in `dcrd`'s home directory, so a local `dcrd` needs no setting for it. For a `dcrd` on another host, point `dcrd.rpchost` at it, copy its `rpc.cert`, and set `dcrd.rpccert` to the full absolute path of the copy: `dcrlnd` does not expand `~` in this option. `dcrd.rpcclientcert` and `dcrd.rpcclientkey` replace the user and password when `dcrd` uses client certificates.
 
-### Mode B: embedded light wallet
+### Mode B: Embedded light wallet
 
 ```ini title="dcrlnd.conf"
 [Application Options]
@@ -104,7 +104,7 @@ dcrwallet.spv = 1
 
 `dcrwallet.spvconnect = <HOST>:9108` limits the light wallet to one trusted `dcrd` peer instead of discovering peers.
 
-### Mode C: a remote dcrwallet
+### Mode C: A remote dcrwallet
 
 `dcrlnd` connects to `dcrwallet`'s gRPC interface, authenticates with a client certificate, and takes over one account. It unlocks that account once at startup, copies the account's extended private key into memory and locks it again.
 

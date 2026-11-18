@@ -27,11 +27,11 @@ Decred also prefers **hard forks**: changes that old software cannot silently ac
 
 The process has five steps. Every step from the upgrade onward is computed from data in the chain, so every node reaches the same result and no single person or server can override it.
 
-### Step 1: a Decred Change Proposal (DCP)
+### Step 1: A Decred Change Proposal (DCP)
 
 A consensus change usually begins as a [Politeia proposal](politeia.md) that asks whether the work should be done at all. If it is approved, developers write a **Decred Change Proposal (DCP)**: a design document that specifies the change exactly, explains why it is needed and comes with a tested implementation. DCPs are numbered (DCP-0001 to DCP-0013 so far) and published in the [decred/dcps repository](https://github.com/decred/dcps), where [DCP-0000](https://github.com/decred/dcps/blob/master/dcp-0000/dcp-0000.mediawiki) describes the process itself.
 
-### Step 2: node software ships the change dormant
+### Step 2: Node software ships the change dormant
 
 A new release of `dcrd` (the node) and the wallets contains the new rules switched off, plus a **deployment**: the agenda's id (such as `maxtreasuryspend`), its choices (`abstain`, `no`, `yes`), and a start and expiry time. The software also raises two version numbers:
 
@@ -40,7 +40,7 @@ A new release of `dcrd` (the node) and the wallets contains the new rules switch
 
 These numbers are how the chain shows that people have upgraded. The current mainnet value of both is 11.
 
-### Step 3: miners and voters upgrade
+### Step 3: Miners and voters upgrade
 
 Voting cannot begin until both groups have moved to the new software:
 
@@ -56,7 +56,7 @@ Two side effects matter to anyone who has not upgraded:
 
 The whitepaper's [upgrade cycle](../../whitepaper/13-voting.md#sec:voting-cycle) gives the exact conditions.
 
-### Step 4: the vote
+### Step 4: The vote
 
 Voting runs in **rule change intervals** of 8,064 blocks (about 4 weeks). An agenda starts voting at the first interval boundary after both upgrades are complete and its start time has passed.
 
@@ -80,7 +80,7 @@ Two points about your own tickets:
 - Each ticket votes once, when it is drawn, with the choice your wallet or VSP has set at that moment. A choice set after the ticket has voted is not added to it.
 - Not every ticket is drawn in a given interval. At the target pool size of 40,960 tickets, a ticket that stays live through a whole interval has roughly a 6 in 10 chance of voting during it.
 
-### Step 5: lock-in, then activation
+### Step 5: Lock-in, then activation
 
 A locked-in agenda waits one more full interval, 8,064 blocks (about 4 weeks), with no further voting. This **lock-in** interval is the last call for anyone who has not upgraded. At the first block after it, the agenda becomes **active**, and every upgraded node enforces the new rules from then on.
 

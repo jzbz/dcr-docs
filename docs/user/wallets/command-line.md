@@ -106,7 +106,7 @@ dcrinstall then:
 
 Its closing messages include one saying that a Lightning wallet could not be created; ignore it unless you plan to use Lightning. To upgrade later, stop every program it installed (`dcrd`, `dcrwallet`, and also `dcrlnd`, `politeiavoter` or Bison Wallet if you run them) and run a newer dcrinstall; when its config files already exist, it replaces only the programs ([Upgrading and mandatory releases](../run/upgrades.md)).
 
-### Option B: the release archive
+### Option B: The release archive
 
 From the [decred-binaries v2.1.7 release page](https://github.com/decred/decred-binaries/releases/tag/v2.1.7), download your system's archive plus `decred-v2.1.7-manifest.txt` and its `.asc` signature, verify the archive, and extract it:
 

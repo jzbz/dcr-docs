@@ -196,7 +196,7 @@ Two practical consequences:
 - **No chaining from stake outputs.** dcrd's mempool gives outputs of unconfirmed transactions a placeholder height that is never mature. A transaction spending an unconfirmed stake-tagged output is rejected outright, not held for later.
 - **Stake transactions never spend outputs from the same block.** For the reason why, see the whitepaper's [in-block spending rules](../../whitepaper/07-transactions.md#sec:transactions-connect).
 
-## Standardness: relay policy versus consensus
+## Standardness: Relay policy versus consensus
 
 A transaction can be valid by consensus and still not relay. Mainnet dcrd nodes reject non-standard transactions by default, while testnet, simnet and regnet accept them (`AcceptNonStdTxs`). Default dcrd builds block templates only from its mempool, so a non-standard transaction is unlikely to be mined on mainnet. To apply the standardness checks on another network, run dcrd with `--rejectnonstd`. The checks builders most often hit:
 

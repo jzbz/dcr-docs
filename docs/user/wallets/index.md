@@ -53,7 +53,7 @@ These are also listed on [decred.org/wallets](https://decred.org/wallets/). Each
 | [Coinomi](https://www.coinomi.com/downloads/) | Android, iOS, Windows, Linux | Hold, send, receive and swap; keys stay on the device |
 | [Ledger Wallet](https://www.ledger.com/coin/wallet/decred) app (listed as Ledger Live) | Desktop, mobile | Holds DCR on a Ledger device |
 
-## Official and third-party: what you trust
+## Official and third-party: What you trust
 
 The official wallets are open source, and their release manifests are signed by the Decred release key, which you can [verify](../security/verify-downloads.md). A third-party wallet adds its vendor's code, release schedule and often servers, which can then see your addresses and balances. A vendor can also drop DCR.
 

@@ -144,7 +144,7 @@ Over the whole schedule, if every block were fully voted, the 21 million DCR wou
 
 Miners received the largest share in the early years under the 60/30/10 split, which is why their lifetime share is so much more than 1%.
 
-## The launch: what block one paid
+## The launch: What block one paid
 
 Decred launched in February 2016. Block one, mined on 8 February 2016, paid 1,680,000 DCR (8% of 21 million) in 3,146 outputs listed in the software. The block's miner received nothing beyond that fixed list.
 

@@ -72,7 +72,7 @@ flowchart TD
     H --> I[Wallet syncs, then Overview]
 ```
 
-### Privacy Options: which outside services Decrediton may contact
+### Privacy Options: Which outside services Decrediton may contact
 
 Besides the Decred network, Decrediton can fetch data from five web services, each of which learns at least your IP address. **Standard** turns on all of them except **Politeia**. **No Outbound Connections** turns all five off: the wallet still works, but you type a voting service provider (VSP) address by hand, see no proposals and get no update notices. **Customize Allowed Connections** lets you tick each one, then click **Accept**.
 
@@ -189,7 +189,7 @@ Open **Settings** with the gear icon at the bottom of the sidebar or the **Setti
 
 The **Trezor** tab works only with a Trezor wallet. Any proxy type covers Decrediton's own web requests, but only a **SOCKS5** proxy is also passed to the bundled `dcrd` and `dcrwallet`, so use SOCKS5 for Tor. [Privacy beyond mixing](../privacy/privacy-practices.md) covers Tor and what each service can learn.
 
-## Advanced setup: use your own node
+## Advanced setup: Use your own node
 
 If you already run `dcrd`, Decrediton can use it instead of its bundled node; `dcrwallet` and your keys stay on this computer. Use only a node you control: it learns which addresses your wallet watches.
 
@@ -259,7 +259,7 @@ Another `dcrd` may be using the same blockchain folder. Stop it, or connect to i
 
 Click the rescan button at the bottom of the sidebar; it scans the chain again for your transactions without re-downloading it. If funds are still missing after a restore, **Settings** > **General** > **Discover Address Usage** searches for used addresses with a gap limit you choose instead of the default 20 (above 100 it gets very slow). [Back up and restore your wallet](back-up-and-restore.md) covers missing funds and tickets.
 
-### Linux: the AppImage does not start (FUSE error)
+### Linux: The AppImage does not start (FUSE error)
 
 A message such as "AppImages require FUSE to run" means the FUSE 2 library is missing. Install your distribution's libfuse2 package (on Ubuntu 22.04 `libfuse2`, on 24.04 and later `libfuse2t64`), or use the `.tar.gz` instead.
 
