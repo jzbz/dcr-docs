@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
 {#
-  The theme leaves the page title off the home page by testing
-  page.is_homepage, which Zensical does not set, so the home page came out
-  as "Home - Decred Documentation". The home page is the one with an empty
-  URL.
+  Page titles put the site name first: "Decred Documentation - User docs".
+  The home page has the site name alone. The theme tests page.is_homepage
+  for that, which Zensical does not set; the home page is the one with an
+  empty URL.
 #}
 {% block htmltitle %}
-  {% if page and page.url == "" %}
-    <title>{{ config.site_name }}</title>
+  {% if page and page.url != "" and page.meta and page.meta.title %}
+    <title>{{ config.site_name }} - {{ page.meta.title }}</title>
+  {% elif page and page.url != "" and page.title %}
+    <title>{{ config.site_name }} - {{ page.title | striptags }}</title>
   {% else %}
-    {{ super() }}
+    <title>{{ config.site_name }}</title>
   {% endif %}
 {% endblock %}
