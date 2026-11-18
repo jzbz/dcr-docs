@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{#
+  The theme leaves the page title off the home page by testing
+  page.is_homepage, which Zensical does not set, so the home page came out
+  as "Home - Decred Documentation". The home page is the one with an empty
+  URL.
+#}
+{% block htmltitle %}
+  {% if page and page.url == "" %}
+    <title>{{ config.site_name }}</title>
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
