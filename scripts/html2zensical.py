@@ -36,6 +36,16 @@ def fail(message):
     sys.exit(f"html2zensical: {message}")
 
 
+def separated(title):
+    """A chapter title with its number set off: `11 · Issuance ...`.
+
+    The export writes the number and the title with a space between them,
+    which reads poorly in the sidebar. Rules and algorithms already use the
+    same dot: `Rule 11.1 · Full block subsidy`.
+    """
+    return re.sub(r"^(\d+|[A-Z]) ", "\\1 \u00b7 ", title)
+
+
 def page_name(chapter):
     """File name stem and title of a chapter, from its <h2>.
 
@@ -52,7 +62,7 @@ def page_name(chapter):
         return "references", title
     number = title.split(" ", 1)[0]
     prefix = f"{int(number):02d}" if number.isdigit() else number
-    return f"{prefix}-{label.split(':', 1)[-1]}", title
+    return f"{prefix}-{label.split(':', 1)[-1]}", separated(title)
 
 
 def md_text(fragment):
@@ -119,8 +129,11 @@ def to_markdown(chapter):
         # Typst's h2 is the chapter title, which is the page's h1.
         level = int(m.group(1)) - 1
         attr = f" {{ #{m.group(2)} }}" if m.group(2) else ""
+        text = " ".join(m.group(3).split())
+        if level == 1:
+            text = separated(text)
         # A heading may hold inline HTML (code, math); its tags are kept.
-        out.append("#" * level + " " + md_text(" ".join(m.group(3).split())) + attr + "\n")
+        out.append("#" * level + " " + md_text(text) + attr + "\n")
         pos = m.end()
     block = raw_block(chapter[pos:])
     if block:
