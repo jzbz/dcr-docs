@@ -19,3 +19,46 @@
     <title>{{ config.site_name }}</title>
   {% endif %}
 {% endblock %}
+
+{#
+  The card that chat apps and social sites show for a link to the site.
+  Every page uses the same image, docs/assets/images/og-card.png, drawn in
+  og-card.svg beside it, with the page's own title and description.
+#}
+{% block extrahead %}
+  {% if page and page.url != "" and (page.title or (page.meta and page.meta.title)) %}
+    {% set og_title = (page.meta.title if page.meta and page.meta.title else page.title | striptags) ~ " - " ~ config.site_name %}
+  {% else %}
+    {% set og_title = config.site_name %}
+  {% endif %}
+  {% set og_description = page.meta.description if page and page.meta and page.meta.description else config.site_description %}
+  {% set og_image = config.site_url ~ "assets/images/og-card.png" %}
+  <meta name="theme-color" content="#05070e" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#eef1f7" media="(prefers-color-scheme: light)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ og_title }}">
+  <meta property="og:description" content="{{ og_description }}">
+  {% if page and page.canonical_url %}
+    <meta property="og:url" content="{{ page.canonical_url }}">
+  {% endif %}
+  <meta property="og:image" content="{{ og_image }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Decred Docs: guides for Decred users and builders">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ og_title }}">
+  <meta name="twitter:description" content="{{ og_description }}">
+  <meta name="twitter:image" content="{{ og_image }}">
+  <meta name="twitter:image:alt" content="Decred Docs: guides for Decred users and builders">
+{% endblock %}
+
+{#
+  The theme renders every page in the light scheme and switches a reader
+  whose system is dark only when its script runs at the end of the page.
+  Switch before anything is painted, unless the reader has made a choice.
+#}
+{% block header %}
+  <script>try{if(!__md_get("__palette")&&matchMedia("(prefers-color-scheme: dark)").matches){document.body.setAttribute("data-md-color-scheme","slate")}}catch(e){}</script>
+  {{ super() }}
+{% endblock %}

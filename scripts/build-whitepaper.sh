@@ -5,7 +5,7 @@
 #   scripts/build-whitepaper.sh
 #
 # Writes docs/whitepaper/*.md, docs/whitepaper/decred-whitepaper.pdf and
-# docs/stylesheets/typst-math.css. All of it is generated and ignored by git;
+# docs/css/typst-math.css. All of it is generated and ignored by git;
 # run this before `zensical build` or `zensical serve`.
 #
 # The source is a checkout of https://github.com/jzbz/dcr-whitepaper, looked
@@ -32,7 +32,7 @@ else
 	src="$repo/../dcr-whitepaper"
 fi
 out="$repo/docs/whitepaper"
-css="$repo/docs/stylesheets/typst-math.css"
+css="$repo/docs/css/typst-math.css"
 
 die() {
 	echo "build-whitepaper.sh: $*" >&2

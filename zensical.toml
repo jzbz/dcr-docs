@@ -182,14 +182,22 @@ extra_css = [
   # A math font for the whitepaper's MathML. Fetched at build time and served
   # from this site by the privacy plugin.
   "https://fonts.googleapis.com/css2?family=STIX+Two+Math&display=swap",
-  "stylesheets/typst-math.css",
-  "stylesheets/whitepaper.css",
-  "stylesheets/site.css",
+  # The display face for headings, served the same way.
+  "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap",
+  # The semibold weight of the text face, which the theme does not request.
+  "https://fonts.googleapis.com/css2?family=Manrope:wght@600&display=swap",
+  "css/typst-math.css",
+  "css/whitepaper.css",
+  "css/site.css",
 ]
 
 [project.theme]
 custom_dir = "overrides"
 language = "en"
+logo = "assets/images/dcr.svg"
+favicon = "assets/images/dcr.svg"
+font.text = "Manrope"
+font.code = "JetBrains Mono"
 features = [
   "content.action.edit",
   "content.code.annotate",
@@ -210,22 +218,33 @@ features = [
   "search.highlight",
 ]
 
+# The colours are the site's own, in docs/css/site.css.
 [[project.theme.palette]]
+primary = "custom"
+accent = "custom"
 media = "(prefers-color-scheme)"
 toggle.icon = "lucide/sun-moon"
 toggle.name = "Switch to light mode"
 
 [[project.theme.palette]]
+primary = "custom"
+accent = "custom"
 media = "(prefers-color-scheme: light)"
 scheme = "default"
 toggle.icon = "lucide/sun"
 toggle.name = "Switch to dark mode"
 
 [[project.theme.palette]]
+primary = "custom"
+accent = "custom"
 media = "(prefers-color-scheme: dark)"
 scheme = "slate"
 toggle.icon = "lucide/moon"
 toggle.name = "Switch to system preference"
+
+# The Decred release the docs describe, shown in the sidebar.
+[project.extra]
+decred_release = "2.1.7"
 
 [project.plugins.search]
 

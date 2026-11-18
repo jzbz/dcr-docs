@@ -1,0 +1,899 @@
+/* Site-wide styles on top of the theme. The look follows map.dcr.pw and
+   data.dcr.pw: a near-black navy ground with a turquoise accent, glassy
+   cards, a fixed sidebar, Manrope for text, Space Grotesk for headings
+   and JetBrains Mono for code. */
+
+/* ------------------------------------------------------------ tokens */
+
+:root {
+  --dcr-turq: #2ed6a1;
+  --dcr-cyan: #36c5e0;
+  --dcr-display: "Space Grotesk", "Manrope", system-ui, sans-serif;
+  --dcr-sidebar: 12.4rem;
+}
+
+/* The light palette is the base for both schemes, so that a page printed
+   from dark mode comes out dark on white. */
+[data-md-color-scheme="default"],
+[data-md-color-scheme="slate"] {
+  color-scheme: light;
+  --dcr-bg: #eef1f7;
+  --dcr-side-bg: #f3f6fa;
+  --dcr-solid: #f8fafc;
+  --dcr-card: rgba(255, 255, 255, 0.7);
+  --dcr-card-2: rgba(255, 255, 255, 0.9);
+  --dcr-border: rgba(16, 22, 42, 0.09);
+  --dcr-border-2: rgba(16, 22, 42, 0.16);
+  --dcr-topbar: rgba(238, 241, 247, 0.82);
+  --dcr-text: #0e1422;
+  --dcr-text-2: #525c70;
+  --dcr-text-3: #5e6878;
+  --dcr-text-4: #7b8496;
+  /* Turquoise is too pale for text on a light ground; this is the same
+     hue, dark enough to read. */
+  --dcr-accent: #076b50;
+  /* The accent family, dark enough for a light ground. */
+  --dcr-c-turq: #0a7a5c;
+  --dcr-c-cyan: #0b7c95;
+  --dcr-c-blue: #2563d6;
+  --dcr-c-violet: #6450d6;
+  --dcr-c-amber: #9a5d07;
+  --dcr-c-red: #bd2f59;
+  --dcr-accent-soft: rgba(46, 214, 161, 0.14);
+  --dcr-accent-line: rgba(46, 214, 161, 0.4);
+  --dcr-glow-turq: rgba(46, 214, 161, 0.1);
+  --dcr-glow-blue: rgba(41, 112, 255, 0.08);
+}
+
+@media screen {
+  [data-md-color-scheme="slate"] {
+    color-scheme: dark;
+    --dcr-bg: #05070e;
+    --dcr-side-bg: #070b12;
+    --dcr-solid: #0b0f18;
+    --dcr-card: rgba(255, 255, 255, 0.022);
+    --dcr-card-2: rgba(255, 255, 255, 0.04);
+    --dcr-border: rgba(255, 255, 255, 0.07);
+    --dcr-border-2: rgba(255, 255, 255, 0.11);
+    --dcr-topbar: rgba(5, 7, 14, 0.72);
+    --dcr-text: #eef1f8;
+    --dcr-text-2: #9aa3b8;
+    --dcr-text-3: #8a93a8;
+    --dcr-text-4: #5e6680;
+    --dcr-accent: #2ed6a1;
+    --dcr-c-turq: #2ed6a1;
+    --dcr-c-cyan: #36c5e0;
+    --dcr-c-blue: #5ba8ff;
+    --dcr-c-violet: #9b8cff;
+    --dcr-c-amber: #f5a623;
+    --dcr-c-red: #f0668c;
+    --dcr-accent-soft: rgba(46, 214, 161, 0.09);
+    --dcr-accent-line: rgba(46, 214, 161, 0.22);
+    --dcr-glow-turq: rgba(46, 214, 161, 0.16);
+    --dcr-glow-blue: rgba(41, 112, 255, 0.14);
+    /* What the theme puts on top of the accent, as on a hovered button. */
+    --md-accent-bg-color: #04130e;
+    --md-accent-bg-color--light: rgba(4, 19, 14, 0.7);
+  }
+}
+
+[data-md-color-scheme="slate"],
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: var(--dcr-bg);
+  --md-default-bg-color--light: var(--dcr-solid);
+  --md-default-fg-color: var(--dcr-text);
+  --md-default-fg-color--light: var(--dcr-text-2);
+  --md-default-fg-color--lighter: var(--dcr-text-4);
+  --md-default-fg-color--lightest: var(--dcr-border);
+  --md-primary-fg-color: var(--dcr-bg);
+  --md-primary-fg-color--light: var(--dcr-bg);
+  --md-primary-fg-color--dark: var(--dcr-bg);
+  --md-primary-bg-color: var(--dcr-text);
+  --md-primary-bg-color--light: var(--dcr-text-2);
+  --md-accent-fg-color: var(--dcr-accent);
+  --md-accent-fg-color--transparent: var(--dcr-accent-soft);
+  --md-typeset-color: var(--dcr-text);
+  --md-typeset-a-color: var(--dcr-accent);
+  --md-code-bg-color: var(--dcr-solid);
+  --md-code-fg-color: var(--dcr-text);
+  --md-code-hl-color: var(--dcr-accent);
+  --md-code-hl-color--light: var(--dcr-accent-soft);
+  --md-code-hl-keyword-color: var(--dcr-c-blue);
+  --md-code-hl-string-color: var(--dcr-c-turq);
+  --md-code-hl-number-color: var(--dcr-c-amber);
+  --md-code-hl-function-color: var(--dcr-c-violet);
+  --md-code-hl-constant-color: var(--dcr-c-cyan);
+  --md-code-hl-special-color: var(--dcr-c-red);
+  --md-code-hl-comment-color: var(--dcr-text-3);
+  --md-typeset-table-color: var(--dcr-border);
+  --md-typeset-table-color--light: var(--dcr-card);
+  --md-footer-bg-color: transparent;
+  --md-footer-bg-color--dark: transparent;
+}
+
+/* ------------------------------------------------------------ ground */
+
+body {
+  background-color: var(--dcr-bg);
+}
+
+/* Two soft glows behind everything, as on the other sites. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 26rem at 12% -6%, var(--dcr-glow-turq), transparent 70%),
+    radial-gradient(44rem 30rem at 92% 58%, var(--dcr-glow-blue), transparent 70%);
+}
+
+.md-main,
+.md-container {
+  background: transparent;
+}
+
+/* --------------------------------------------------------------- type */
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-header__title {
+  font-family: var(--dcr-display);
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h1 {
+  font-weight: 600;
+  color: var(--dcr-text);
+}
+
+.md-typeset h2,
+.md-typeset h3 {
+  font-weight: 600;
+}
+
+/* The breadcrumb reads as the small label above a page title. */
+.md-path {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.md-path__link,
+.md-path__item:not(:first-child)::before {
+  color: var(--dcr-accent);
+}
+
+/* ------------------------------------------------------------- topbar */
+
+.md-header {
+  background-color: var(--dcr-topbar);
+  color: var(--dcr-text);
+  border-bottom: 1px solid var(--dcr-border);
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.md-header--shadow {
+  box-shadow: none;
+}
+
+.md-tabs {
+  background: transparent;
+  color: var(--dcr-text-2);
+}
+
+.md-search__button {
+  border: 1px solid var(--dcr-border);
+  border-radius: 0.55rem;
+  background-color: var(--dcr-card-2);
+}
+
+/* ---------------------------------------------------------- the cards */
+
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid > .card {
+  position: relative;
+  border: 1px solid var(--dcr-border);
+  border-radius: 0.7rem;
+  background-color: var(--dcr-card);
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.md-typeset .grid.cards > ul > li:hover,
+.md-typeset .grid.cards > ul > li:focus-within,
+.md-typeset .grid > .card:hover {
+  border-color: var(--dcr-accent-line);
+  background-color: var(--dcr-card-2);
+  box-shadow: none;
+}
+
+/* A card's title is its link: no underline, and the whole card takes
+   the click. Other links in the card stay on top of it. */
+.md-typeset .grid.cards > ul > li a {
+  position: relative;
+  z-index: 1;
+}
+
+.md-typeset .grid.cards > ul > li > p > strong:only-child > a {
+  position: static;
+  font-family: var(--dcr-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--dcr-text);
+}
+
+.md-typeset .grid.cards > ul > li > p > strong:only-child > a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.md-typeset .grid.cards > ul > li:hover > p > strong:only-child > a {
+  color: var(--dcr-accent);
+}
+
+.md-typeset .grid.cards > ul > li > hr {
+  display: none;
+}
+
+.md-typeset .grid.cards > ul > li > p {
+  margin: 0.3rem 0 0;
+  color: var(--dcr-text-2);
+}
+
+.md-typeset .grid.cards > ul > li > p:first-child {
+  margin-top: 0;
+}
+
+/* -------------------------------------------------------- admonitions */
+
+.md-typeset .admonition,
+.md-typeset details {
+  --dcr-adm: var(--dcr-c-blue);
+  border: 1px solid color-mix(in srgb, var(--dcr-adm) 22%, transparent);
+  border-radius: 0.6rem;
+  background-color: color-mix(in srgb, var(--dcr-adm) 7%, transparent);
+}
+
+.md-typeset :is(.admonition, details):is(.abstract, .info) {
+  --dcr-adm: var(--dcr-c-cyan);
+}
+
+.md-typeset :is(.admonition, details):is(.tip, .success) {
+  --dcr-adm: var(--dcr-c-turq);
+}
+
+.md-typeset :is(.admonition, details):is(.question, .example) {
+  --dcr-adm: var(--dcr-c-violet);
+}
+
+.md-typeset :is(.admonition, details).warning {
+  --dcr-adm: var(--dcr-c-amber);
+}
+
+.md-typeset :is(.admonition, details):is(.danger, .failure, .bug) {
+  --dcr-adm: var(--dcr-c-red);
+}
+
+.md-typeset :is(.admonition, details).quote {
+  --dcr-adm: var(--dcr-text-3);
+}
+
+.md-typeset :is(.admonition, details)[class] {
+  background-color: color-mix(in srgb, var(--dcr-adm) 7%, transparent);
+}
+
+.md-typeset .admonition[class] > .admonition-title::before,
+.md-typeset details[class] > summary::before {
+  background-color: var(--dcr-adm);
+}
+
+.md-typeset .admonition[class] > .admonition-title::after,
+.md-typeset details[class] > summary::after {
+  color: var(--dcr-adm);
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  font-family: var(--dcr-display);
+  font-weight: 600;
+}
+
+.md-typeset pre > code,
+.md-typeset .highlighttable {
+  border: 1px solid var(--dcr-border);
+  border-radius: 0.6rem;
+}
+
+.md-typeset table:not([class]) {
+  border: 1px solid var(--dcr-border);
+  border-radius: 0.6rem;
+  background-color: var(--dcr-card);
+}
+
+.md-typeset table:not([class]) th {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dcr-text-3);
+}
+
+.md-typeset .md-button {
+  border-radius: 0.55rem;
+}
+
+.md-typeset .md-button--primary {
+  border-color: var(--dcr-turq);
+  background-color: var(--dcr-turq);
+  color: #04130e;
+}
+
+/* ------------------------------------------------------------ sidebar */
+
+.dcr-side__top,
+.dcr-side__bottom {
+  display: none;
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-header,
+  .md-container {
+    margin-left: var(--dcr-sidebar);
+  }
+
+  /* The sidebar carries the logo, the name and the sections. */
+  .md-header__button.md-logo,
+  .md-header__title,
+  .md-tabs {
+    display: none;
+  }
+
+  /* Search first and wide, then the theme switch and the repository
+     at the right, as on the other sites. */
+  .md-search {
+    order: 1;
+    flex: 0 1 22rem;
+    margin-left: 0.8rem;
+  }
+
+  .md-search__button {
+    width: 100%;
+  }
+
+  .md-header__option {
+    order: 2;
+    margin-left: auto;
+  }
+
+  .md-header__source {
+    order: 3;
+    margin-left: 0.6rem;
+  }
+
+  .md-header__option > .md-header__button {
+    width: 1.8rem;
+    height: 1.8rem;
+    margin: 0;
+    padding: 0.35rem;
+    border: 1px solid var(--dcr-border);
+    border-radius: 0.55rem;
+    background-color: var(--dcr-card-2);
+  }
+
+  .md-header__option > .md-header__button svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .md-sidebar--primary {
+    position: fixed;
+    top: 0 !important;
+    left: 0;
+    z-index: 3;
+    width: var(--dcr-sidebar);
+    height: 100vh !important;
+    padding: 0;
+    border-right: 1px solid var(--dcr-border);
+    background:
+      radial-gradient(18rem 14rem at 0% 0%, var(--dcr-glow-turq), transparent 70%),
+      var(--dcr-side-bg);
+  }
+
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    position: static;
+    height: 100% !important;
+    margin: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    /* Keep a link that takes focus clear of the two pinned blocks. */
+    scroll-padding-top: 14rem;
+    scroll-padding-bottom: 10.5rem;
+  }
+
+  .md-sidebar--primary .md-sidebar__inner {
+    min-height: 100%;
+    padding: 0;
+  }
+
+  .md-sidebar--primary .md-nav--primary {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 0.6rem;
+  }
+
+  .md-sidebar--primary .md-nav--primary > .md-nav__title,
+  .md-sidebar--primary .md-nav--primary > .md-nav__source {
+    display: none;
+  }
+
+  .md-sidebar--primary .md-nav--primary > .md-nav__list {
+    flex: 1;
+    padding: 0.2rem 0.2rem 0.8rem;
+  }
+
+  .dcr-side__top {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: block;
+    padding: 0.9rem 0 0.7rem;
+    background:
+      radial-gradient(18rem 14rem at -0.6rem 0%, var(--dcr-glow-turq), transparent 70%),
+      var(--dcr-side-bg);
+  }
+
+  .dcr-side__bottom {
+    position: sticky;
+    bottom: 0;
+    margin-top: auto;
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.6rem 0 0.7rem;
+    z-index: 2;
+    background: linear-gradient(transparent, var(--dcr-side-bg) 0.6rem);
+  }
+}
+
+.dcr-side__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 0.2rem;
+  color: var(--dcr-text);
+}
+
+.dcr-side__brand img {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 0.5rem;
+}
+
+.dcr-side__brand-text {
+  display: grid;
+  line-height: 1.2;
+}
+
+.dcr-side__brand-name {
+  font-family: var(--dcr-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.dcr-side__brand-sub,
+.dcr-side__eyebrow {
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dcr-text-3);
+}
+
+.dcr-side__eyebrow {
+  margin: 1.1rem 0.3rem 0.4rem;
+}
+
+.dcr-side__sections {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.dcr-side__link {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.42rem 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--dcr-text-2);
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.dcr-side__link svg {
+  flex: none;
+  width: 0.85rem;
+  height: 0.85rem;
+  fill: none;
+  stroke: currentcolor;
+}
+
+.dcr-side__link:hover,
+.dcr-side__link:focus-visible {
+  color: var(--dcr-text);
+  background-color: var(--dcr-card-2);
+}
+
+.dcr-side__link--active,
+.dcr-side__link--active:hover {
+  border-color: var(--dcr-accent-line);
+  background-color: var(--dcr-accent-soft);
+  color: var(--dcr-accent);
+}
+
+.dcr-side__card {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--dcr-border);
+  border-radius: 0.6rem;
+  background-color: var(--dcr-card-2);
+  color: var(--dcr-text);
+}
+
+.dcr-side__card--accent {
+  border-color: var(--dcr-accent-line);
+  background-color: var(--dcr-accent-soft);
+}
+
+a.dcr-side__card:hover,
+a.dcr-side__card:focus-visible {
+  border-color: var(--dcr-accent);
+}
+
+.dcr-side__card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.dcr-side__card-title svg {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-left: auto;
+  fill: none;
+  stroke: var(--dcr-accent);
+}
+
+.dcr-side__card-sub {
+  font-size: 0.55rem;
+  line-height: 1.45;
+  color: var(--dcr-text-2);
+}
+
+.dcr-side__card-sub--mono {
+  font-family: var(--md-code-font-family);
+}
+
+.dcr-side__dot {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background-color: var(--dcr-turq);
+  box-shadow: 0 0 0 0.15rem var(--dcr-accent-soft);
+}
+
+/* A short window has no room for the pinned blocks: let the cards, and
+   on a very short one the top block too, scroll with the list. */
+@media screen and (min-width: 76.25em) and (max-height: 40em) {
+  .dcr-side__bottom {
+    position: static;
+    background: none;
+  }
+
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    scroll-padding-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 76.25em) and (max-height: 36em) {
+  .dcr-side__top {
+    position: static;
+  }
+
+  .md-sidebar--primary .md-sidebar__scrollwrap {
+    scroll-padding-top: 0;
+  }
+}
+
+@media screen and (min-width: 76.25em) {
+  /* The sidebar took the navigation column out of the page grid; narrow
+     the grid so lines of text keep a readable length. */
+  .md-main__inner.md-grid,
+  .md-header__inner.md-grid,
+  .dcr-colophon__inner.md-grid {
+    max-width: 52rem;
+  }
+
+  /* The theme centres this button on the window. */
+  [dir="ltr"] .md-top {
+    margin-left: calc(50% - var(--dcr-sidebar) / 2);
+  }
+
+  /* The theme leaves room under the header for the tab bar. */
+  .md-header--lifted ~ .md-container .md-typeset :target {
+    --md-scroll-margin: 3.6rem;
+  }
+
+  /* A page that hides the navigation gets the theme's own header back. */
+  body:has(.md-sidebar--primary[hidden]) :is(.md-header, .md-container) {
+    margin-left: 0;
+  }
+
+  body:has(.md-sidebar--primary[hidden]) .md-tabs,
+  body:has(.md-sidebar--primary[hidden]) .md-header__title {
+    display: block;
+  }
+
+  body:has(.md-sidebar--primary[hidden]) .md-header__button.md-logo {
+    display: inline-block;
+  }
+}
+
+.md-top:focus-visible,
+.md-sidebar--secondary .md-sidebar-button:focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .dcr-side__link--active,
+  .md-nav--primary .md-nav__link--active {
+    forced-color-adjust: none;
+    border-color: Highlight;
+    background-color: Highlight;
+    color: HighlightText;
+  }
+}
+
+/* The drawer on narrow screens. */
+@media screen and (max-width: 76.234375em) {
+  .md-sidebar--primary,
+  .md-nav--primary,
+  .md-nav--primary .md-nav,
+  .md-nav--primary .md-nav__title {
+    background-color: var(--dcr-side-bg);
+  }
+}
+
+/* The pages of the current section. */
+.md-nav--primary .md-nav__link {
+  border-radius: 0.4rem;
+}
+
+.md-nav__item .md-nav__link--active,
+.md-nav__item .md-nav__link--active code {
+  color: var(--dcr-accent);
+}
+
+/* ------------------------------------------------------------- footer */
+
+/* The footer: overrides/partials/footer.html. */
+.dcr-colophon {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--dcr-border);
+  background-color: var(--dcr-card);
+}
+
+.dcr-colophon__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.6rem;
+  padding: 0 0.8rem;
+}
+
+.dcr-colophon__logo {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 0.2rem;
+  vertical-align: middle;
+}
+
+.dcr-colophon__name {
+  margin-left: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  vertical-align: middle;
+  color: var(--md-default-fg-color);
+}
+
+.dcr-colophon p {
+  margin: 0.2rem 0 0;
+  font-size: 0.65rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+}
+
+.dcr-colophon__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
+  margin-left: auto;
+  font-size: 0.65rem;
+}
+
+.dcr-colophon__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.dcr-colophon__links a:hover,
+.dcr-colophon__links a:focus-visible {
+  color: var(--md-default-fg-color);
+  text-decoration: underline;
+}
+
+.dcr-colophon__links svg {
+  width: 0.65rem;
+  height: 0.65rem;
+  fill: none;
+  stroke: currentcolor;
+}
+
+/* ---------------------------------------------------------- home page */
+
+.md-typeset .dcr-hero {
+  padding: 1.6rem 0 0.4rem;
+}
+
+.md-typeset .dcr-hero__eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dcr-accent);
+}
+
+.md-typeset .dcr-hero__eyebrow--quiet {
+  margin-top: 1.8rem;
+  color: var(--dcr-text-3);
+}
+
+.md-typeset .dcr-hero h1 {
+  max-width: 22ch;
+  margin: 0 0 0.8rem;
+  font-size: 2.2rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset .dcr-hero__lead {
+  max-width: 34rem;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: var(--dcr-text-2);
+}
+
+@media screen and (max-width: 44.984375em) {
+  .md-typeset .dcr-hero h1 {
+    font-size: 1.6rem;
+  }
+}
+
+.md-typeset .dcr-hero__cards {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 0.6rem;
+}
+
+.md-typeset .dcr-hero__cards > ul > li {
+  padding: 1rem;
+}
+
+.md-typeset .dcr-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid color-mix(in srgb, currentcolor 28%, transparent);
+  border-radius: 0.5rem;
+  background-color: color-mix(in srgb, currentcolor 10%, transparent);
+}
+
+.md-typeset .dcr-icon svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  max-height: none;
+  fill: none;
+  stroke: currentcolor;
+}
+
+.md-typeset .dcr-icon--turq {
+  color: var(--dcr-c-turq);
+}
+
+.md-typeset .dcr-icon--blue {
+  color: var(--dcr-c-blue);
+}
+
+.md-typeset .dcr-icon--violet {
+  color: var(--dcr-c-violet);
+}
+
+.md-typeset .dcr-hero__cards > ul > li > p:nth-of-type(2) {
+  margin-top: 0.8rem;
+}
+
+/* A row of links as pills. */
+.md-typeset .dcr-chips p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.md-typeset .dcr-chips a {
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--dcr-border);
+  border-radius: 2rem;
+  background-color: var(--dcr-card);
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--dcr-text-2);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.md-typeset .dcr-chips a:hover,
+.md-typeset .dcr-chips a:focus-visible {
+  border-color: var(--dcr-accent-line);
+  color: var(--dcr-accent);
+}
+
+/* ------------------------------------------------- contents and chrome */
+
+.md-nav--secondary .md-nav__title {
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dcr-text-3);
+  background: transparent;
+}
+
+.md-nav--secondary .md-nav__link {
+  border-left: 2px solid transparent;
+  border-radius: 0;
+}
+
+.md-nav--secondary .md-nav__link--active {
+  border-left-color: var(--dcr-accent);
+  color: var(--dcr-accent);
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--dcr-border-2) transparent;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--dcr-turq) 32%, transparent);
+}

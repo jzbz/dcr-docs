@@ -1,0 +1,89 @@
+{#-
+  The primary navigation. On wide screens it is the site's sidebar, laid
+  out like the ones on map.dcr.pw and data.dcr.pw: the logo and name at
+  the top, the site's sections with an icon each, the pages of the
+  current section, and two cards at the bottom. The section links stand
+  in for the theme's tab bar, which docs/css/site.css hides.
+
+  On narrow screens it is the theme's drawer, and the extra blocks are
+  hidden. The list in the middle is the theme's own.
+-#}
+{% import "partials/nav-item.html" as item with context %}
+{% set class = "md-nav md-nav--primary" %}
+{% if "navigation.tabs" in features %}
+  {% set class = class ~ " md-nav--lifted" %}
+{% endif %}
+{% if "toc.integrate" in features %}
+  {% set class = class ~ " md-nav--integrated" %}
+{% endif %}
+{% set home = config.extra.homepage | d(nav.homepage.url, true) | url %}
+{#- The page a section link opens: its index page, or its first page. -#}
+{% macro section_link(nav_item, top) %}
+  {% if nav_item.children %}
+    {% set _ = namespace(index = none) %}
+    {% for child in nav_item.children %}
+      {% if child.is_index and _.index is none %}
+        {% set _.index = child %}
+      {% endif %}
+    {% endfor %}
+    {{ section_link(_.index or nav_item.children | first, top) }}
+  {% else %}
+    {% set icons = {
+      "Home": "lucide/house",
+      "User docs": "lucide/book-open",
+      "Developer docs": "lucide/code-xml",
+      "Whitepaper": "lucide/scroll-text",
+    } %}
+    {% set icon = icons[top.title] | default("lucide/file-text") %}
+    <a class="dcr-side__link{% if top.active %} dcr-side__link--active{% endif %}" href="{{ nav_item.url | url }}"{% if top.active %} aria-current="true"{% endif %}>
+      {% include ".icons/" ~ icon ~ ".svg" %}
+      <span>{{ top.title }}</span>
+    </a>
+  {% endif %}
+{% endmacro %}
+<nav class="{{ class }}" aria-label="{{ lang.t('nav') }}" data-md-level="0">
+  <div class="dcr-side__top">
+    <a class="dcr-side__brand" href="{{ home }}">
+      <img src="{{ 'assets/images/dcr.svg' | url }}" alt="" width="36" height="36">
+      <span class="dcr-side__brand-text">
+        <span class="dcr-side__brand-name">Decred Docs</span>
+        <span class="dcr-side__brand-sub">Documentation</span>
+      </span>
+    </a>
+    <div class="dcr-side__eyebrow">Explore</div>
+    <div class="dcr-side__sections">
+      {% for nav_item in nav.items %}
+        {{ section_link(nav_item, nav_item) }}
+      {% endfor %}
+    </div>
+  </div>
+  <label class="md-nav__title" for="__drawer">
+    <a href="{{ home }}" title="{{ config.site_name | e }}" class="md-nav__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
+      {% include "partials/logo.html" %}
+    </a>
+    {{ config.site_name }}
+  </label>
+  {% if config.repo_url %}
+    <div class="md-nav__source">
+      {% include "partials/source.html" %}
+    </div>
+  {% endif %}
+  <ul class="md-nav__list" data-md-scrollfix>
+    {% for nav_item in nav.items %}
+      {% set path = "__nav_" ~ loop.index %}
+      {{ item.render(nav_item, path, 1) }}
+    {% endfor %}
+  </ul>
+  <div class="dcr-side__bottom">
+    <a class="dcr-side__card dcr-side__card--accent" href="https://dcr.pw/">
+      <span class="dcr-side__card-title">Run a node{% include ".icons/lucide/arrow-up-right.svg" %}</span>
+      <span class="dcr-side__card-sub">Strengthen the network: one command on dcr.pw</span>
+    </a>
+    {% if config.extra.decred_release %}
+      <div class="dcr-side__card">
+        <span class="dcr-side__card-title"><span class="dcr-side__dot"></span>Decred {{ config.extra.decred_release }}</span>
+        <span class="dcr-side__card-sub dcr-side__card-sub--mono">the release these docs describe</span>
+      </div>
+    {% endif %}
+  </div>
+</nav>
