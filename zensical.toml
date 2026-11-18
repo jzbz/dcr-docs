@@ -184,6 +184,7 @@ extra_css = [
   "https://fonts.googleapis.com/css2?family=STIX+Two+Math&display=swap",
   "stylesheets/typst-math.css",
   "stylesheets/whitepaper.css",
+  "stylesheets/site.css",
 ]
 
 [project.theme]

@@ -1,0 +1,66 @@
+/* Site-wide styles that are not part of the theme. */
+
+/* The footer: overrides/partials/footer.html. */
+.dcr-colophon {
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  background-color: var(--md-code-bg-color);
+}
+
+.dcr-colophon__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.6rem;
+  padding: 0 0.8rem;
+}
+
+.dcr-colophon__logo {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 0.2rem;
+  vertical-align: middle;
+}
+
+.dcr-colophon__name {
+  margin-left: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  vertical-align: middle;
+  color: var(--md-default-fg-color);
+}
+
+.dcr-colophon p {
+  margin: 0.2rem 0 0;
+  font-size: 0.65rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+}
+
+.dcr-colophon__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.2rem;
+  margin-left: auto;
+  font-size: 0.65rem;
+}
+
+.dcr-colophon__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.dcr-colophon__links a:hover,
+.dcr-colophon__links a:focus-visible {
+  color: var(--md-default-fg-color);
+  text-decoration: underline;
+}
+
+.dcr-colophon__links svg {
+  width: 0.65rem;
+  height: 0.65rem;
+  fill: none;
+  stroke: currentcolor;
+}
