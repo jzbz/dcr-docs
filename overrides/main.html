@@ -2,15 +2,19 @@
 
 {#
   Page titles put the site name first: "Decred Documentation - User docs".
-  The home page has the site name alone. The theme tests page.is_homepage
-  for that, which Zensical does not set; the home page is the one with an
-  empty URL.
+  A whitepaper chapter also names the whitepaper: "Decred Documentation -
+  Decred Technical Whitepaper - 8 The Stake System". The home page has the
+  site name alone. The theme tests page.is_homepage for that, which
+  Zensical does not set; the home page is the one with an empty URL.
 #}
 {% block htmltitle %}
-  {% if page and page.url != "" and page.meta and page.meta.title %}
-    <title>{{ config.site_name }} - {{ page.meta.title }}</title>
-  {% elif page and page.url != "" and page.title %}
-    <title>{{ config.site_name }} - {{ page.title | striptags }}</title>
+  {% if page and page.url != "" and (page.title or (page.meta and page.meta.title)) %}
+    {% set name = page.meta.title if page.meta and page.meta.title else page.title | striptags %}
+    {% if page.url[:11] == "whitepaper/" and page.url != "whitepaper/" %}
+      <title>{{ config.site_name }} - Decred Technical Whitepaper - {{ name }}</title>
+    {% else %}
+      <title>{{ config.site_name }} - {{ name }}</title>
+    {% endif %}
   {% else %}
     <title>{{ config.site_name }}</title>
   {% endif %}
