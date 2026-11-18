@@ -1,0 +1,215 @@
+--- a/template.typ
++++ b/template.typ
+@@ -32,6 +32,9 @@
+ // ---------------------------------------------------------------------------
+ 
+ #let appendix-mode = state("appendix-mode", false)
++#let web = sys.inputs.at("web", default: none) != none
++#let el(tag, cls, body, ..attrs) = html.elem(tag, attrs: (class: cls, ..attrs.named()), body)
++
+ 
+ // Numbers a per-chapter item ("7.3", "B.2") from the current chapter number.
+ #let chapter-scoped(n) = {
+@@ -48,6 +51,7 @@
+ // `#src("internal/blockchain/validate.go", "checkBlockHeaderSanity")`.
+ #let src(path, ..symbols) = {
+   let syms = symbols.pos()
++  if web { return el("code", "dcr-src", path + if syms.len() > 0 { " · " + syms.join(", ") }) }
+   // Not boxed: an unbreakable reference at the end of a justified paragraph
+   // forces the lines before it to be stretched. It may break at its spaces.
+   // No break next to the separator, so no line starts or ends on it. The path
+@@ -79,13 +83,13 @@
+ 
+ // The name of a network parameter (a field of chaincfg.Params), e.g.
+ // `#param("TicketMaturity")`.
+-#let param(name) = text(font: mono, size: 0.88em, fill: palette.teal, hyphenate: false, name)
++#let param(name) = if web { el("code", "dcr-param", name) } else { text(font: mono, size: 0.88em, fill: palette.teal, hyphenate: false, name) }
+ 
+ // A named constant that is not a per-network parameter.
+-#let const(name) = text(font: mono, size: 0.88em, fill: palette.ink, hyphenate: false, name)
++#let const(name) = if web { el("code", "dcr-const", name) } else { text(font: mono, size: 0.88em, fill: palette.ink, hyphenate: false, name) }
+ 
+ // Hex data that is allowed to break across lines at any position.
+-#let hex(s) = text(
++#let hex(s) = if web { el("code", "dcr-hex", s) } else { text(
+   font: mono,
+   size: 0.85em,
+   // A short value is never broken. A long one may break anywhere except in
+@@ -94,14 +98,14 @@
+     let c = s.clusters()
+     box(c.slice(0, 8).join()) + sym.zws + c.slice(8, c.len() - 8).join(sym.zws) + sym.zws + box(c.slice(c.len() - 8).join())
+   },
+-)
++) }
+ 
+ // Normative keywords.
+-#let MUST = text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "MUST")
+-#let MUSTNOT = text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "MUST NOT")
+-#let SHOULD = text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "SHOULD")
+-#let SHOULDNOT = text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "SHOULD NOT")
+-#let MAY = text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "MAY")
++#let MUST = if web { el("strong", "dcr-kw", "MUST") } else { text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "MUST") }
++#let MUSTNOT = if web { el("strong", "dcr-kw", "MUST NOT") } else { text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "MUST NOT") }
++#let SHOULD = if web { el("strong", "dcr-kw", "SHOULD") } else { text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "SHOULD") }
++#let SHOULDNOT = if web { el("strong", "dcr-kw", "SHOULD NOT") } else { text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "SHOULD NOT") }
++#let MAY = if web { el("strong", "dcr-kw", "MAY") } else { text(font: sans, size: 0.86em, weight: "semibold", tracking: 0.03em, "MAY") }
+ 
+ // A cross-reference that degrades gracefully when the target is in a chapter
+ // that is not part of the current (partial) build. `key` is a label name.
+@@ -125,6 +129,7 @@
+ #let source-line(srcs) = {
+   if srcs == none { return }
+   let items = if type(srcs) == array { srcs } else { (srcs,) }
++  if web { return el("p", "dcr-source", [dcrd: ] + items.map(i => if type(i) == str { raw(i) } else { i }).join([ | ])) }
+   // One reference: "path · symbol, symbol". The path stays with its first
+   // symbol and a break is allowed only after a comma, so a wrapped line never
+   // starts or ends on a separator and a path is never split at a slash.
+@@ -186,7 +191,9 @@
+   },
+ )
+ 
+-#let callout(label-text, colour, wash, body) = block(
++#let callout(label-text, colour, wash, body, kind: "note") = if web {
++  el("div", "admonition " + kind, el("p", "admonition-title", label-text) + body)
++} else { block(
+   width: 100%,
+   breakable: true,
+   fill: wash,
+@@ -200,22 +207,24 @@
+     set text(size: 0.95em)
+     body
+   },
+-)
++) }
+ 
+ // Informative remark.
+ #let note(body) = callout("Note", palette.muted, palette.wash, body)
+ 
+ // Why a rule is the way it is.
+-#let rationale(body) = callout("Rationale", palette.teal, palette.wash-teal, body)
++#let rationale(body) = callout("Rationale", palette.teal, palette.wash-teal, body, kind: "tip")
+ 
+ // A rule that changed through a consensus vote or a historical quirk.
+-#let history(body) = callout("History", palette.blue, palette.wash-blue, body)
++#let history(body) = callout("History", palette.blue, palette.wash-blue, body, kind: "info")
+ 
+ // A trap for implementers: behaviour that is easy to get wrong.
+-#let pitfall(body) = callout("Implementation pitfall", palette.orange, palette.wash-orange, body)
++#let pitfall(body) = callout("Implementation pitfall", palette.orange, palette.wash-orange, body, kind: "warning")
+ 
+ // A test vector block. The body is normally a fenced code block or a table.
+-#let vector(title, body) = block(
++#let vector(title, body) = if web {
++  html.elem("details", attrs: (class: "example"), html.elem("summary", [Test vector: ] + title) + body)
++} else { block(
+   width: 100%,
+   breakable: true,
+   stroke: 0.5pt + palette.hairline,
+@@ -231,7 +240,7 @@
+     set text(size: 0.92em)
+     body
+   },
+-)
++) }
+ 
+ // A table describing a serialized structure. Each row is
+ // (field, type, size in bytes, description).
+@@ -308,7 +317,7 @@
+ )
+ 
+ // A part divider page.
+-#let part(title, summary: none) = {
++#let part(title, summary: none) = if web { } else {
+   pagebreak(weak: true)
+   counter("part").step()
+   // Marks the page so that it gets no running header.
+@@ -355,7 +364,38 @@
+   abstract: none,
+   front-matter: true,
+   body,
+-) = {
++) = if web {
++  set document(title: "Decred: Technical Whitepaper and Protocol Specification")
++  set math.equation(numbering: n => "(" + chapter-scoped(n) + ")", supplement: [Eq.])
++  set heading(supplement: [Chapter], numbering: (..nums) => if nums.pos().len() <= 3 { numbering(if appendix-mode.get() { "A.1" } else { "1.1" }, ..nums) })
++  set figure(numbering: n => chapter-scoped(n))
++  show heading: it => {
++    if it.level == 1 {
++      counter(figure.where(kind: image)).update(0); counter(figure.where(kind: table)).update(0)
++      counter(figure.where(kind: raw)).update(0); counter(figure.where(kind: "rule")).update(0)
++      counter(figure.where(kind: "algorithm")).update(0); counter(math.equation).update(0)
++    }
++    let num = if it.numbering != none and it.level <= 3 { context counter(heading).display(it.numbering) + " " }
++    html.elem("h" + str(calc.min(it.level, 5) + 1), attrs: if it.has("label") { (id: str(it.label)) } else { (:) }, num + it.body)
++  }
++  show ref: it => {
++    let e = it.element
++    if e != none and e.func() == heading and e.level > 1 and it.supplement == auto {
++      let fmt = if appendix-mode.at(e.location()) { "A.1" } else { "1.1" }
++      link(e.location(), [Section~#numbering(fmt, ..counter(heading).at(e.location()))])
++    } else { it }
++  }
++  show math.equation.where(block: true): it => {
++    let id = if it.has("label") { (id: str(it.label)) } else { (:) }
++    if it.numbering == none { it } else { html.elem("div", attrs: (class: "dcr-eq", ..id), it + el("span", "dcr-eqno", context "(" + chapter-scoped(counter(math.equation).get().first()) + ")")) }
++  }
++  show figure.where(kind: image): it => html.elem("figure", attrs: if it.has("label") { (id: str(it.label)) } else { (:) }, html.frame(block(width: 15.6cm, it.body)) + html.elem("figcaption", [Figure ] + context it.counter.display(it.numbering) + [. ] + it.caption.body))
++  show figure.where(kind: table): it => html.elem("figure", attrs: (class: "dcr-table", ..if it.has("label") { (id: str(it.label)) } else { (:) }), html.elem("figcaption", [Table ] + context it.counter.display(it.numbering) + [. ] + it.caption.body) + it.body)
++  show figure.where(kind: "rule"): it => html.elem("div", attrs: (class: "admonition dcr-rule", ..if it.has("label") { (id: str(it.label)) } else { (:) }), el("p", "admonition-title", [Rule ] + context it.counter.display(it.numbering) + [ · ] + it.caption.body) + it.body)
++  show figure.where(kind: "algorithm"): it => html.elem("div", attrs: (class: "dcr-algorithm", ..if it.has("label") { (id: str(it.label)) } else { (:) }), el("p", "dcr-algorithm-title", [Algorithm ] + context it.counter.display(it.numbering) + [ · ] + it.caption.body) + it.body)
++  if front-matter and abstract != none { el("div", "dcr-abstract", abstract) }
++  body
++} else {
+   set document(title: "Decred: Technical Whitepaper and Protocol Specification", keywords: (
+     "Decred",
+     "consensus",
+--- a/chapters/14-parameters.typ
++++ b/chapters/14-parameters.typ
+@@ -15,8 +15,8 @@
+   }
+ }
+ #let hx(s) = text(size: 7.8pt, hex(s))
+-#let usetag(u) = box(text(font: sans, size: 6.1pt, weight: "medium", tracking: 0.04em, fill: palette.muted, upper(u)))
+-#let fname(s) = text(font: mono, size: 7.3pt, weight: "semibold", fill: palette.teal, s)
++#let usetag(u) = if web { el("span", "dcr-usetag", upper(u)) } else { box(text(font: sans, size: 6.1pt, weight: "medium", tracking: 0.04em, fill: palette.muted, upper(u))) }
++#let fname(s) = if web { el("code", "dcr-param", s) } else { text(font: mono, size: 7.3pt, weight: "semibold", fill: palette.teal, s) }
+ #let netheads = ([mainnet], [testnet3], [simnet], [regnet])
+ #let vcol = 22.5mm
+ #let vinset = (x: 4pt, y: 4.6pt)
+@@ -32,7 +32,7 @@
+     ..rows
+       .map(r => {
+         let (name, use, meaning, vals) = r
+-        let first = [#fname(name)#h(0.5em)#usetag(use) \ #text(size: 7.6pt, meaning)]
++        let first = [#fname(name)#if web [ ] else [#h(0.5em)]#usetag(use) \ #text(size: 7.6pt, meaning)]
+         if vals.len() == 1 {
+           (first, table.cell(colspan: 4, align: center, vals.at(0)))
+         } else {
+--- a/chapters/A2-rule-index.typ
++++ b/chapters/A2-rule-index.typ
+@@ -18,7 +18,12 @@
+   let chapters = query(heading.where(level: 1)).filter(h => h.numbering != none)
+ 
+   // The chapter a location belongs to is the last chapter heading before it.
+-  let chapter-of(loc) = {
++  let chapter-of(loc) = if web {
++    // No pages in HTML: the chapter is the last level-1 heading whose
++    // location precedes this one in document order.
++    let before = query(heading.where(level: 1).before(loc)).filter(h => h.numbering != none)
++    if before.len() == 0 { none } else { before.last() }
++  } else {
+     let before = chapters.filter(h => {
+       let hl = h.location()
+       hl.page() < loc.page() or (hl.page() == loc.page() and hl.position().y <= loc.position().y)
+@@ -53,6 +58,11 @@
+ 
+   for key in order {
+     let g = groups.at(key)
++    if web {
++      html.elem("h3", key + " " + g.heading.body)
++      html.elem("ul", attrs: (class: "dcr-rule-index"), g.rows.map(r => html.elem("li", r.at(0) + [ ] + r.at(1))).join())
++      continue
++    }
+     block(above: 1.8em, below: 0.8em, sticky: true, {
+       text(font: sans, size: 10.5pt, weight: "semibold", fill: palette.teal, key)
+       h(0.7em)

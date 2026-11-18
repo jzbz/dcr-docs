@@ -1,0 +1,100 @@
+/* Styles for the generated whitepaper pages (docs/whitepaper/). The class
+   names come from scripts/whitepaper-web.patch. */
+
+/* Typst emits MathML; it needs a font with a MATH table. */
+.md-typeset math {
+  font-family: "STIX Two Math", "Latin Modern Math", "Cambria Math", math;
+}
+
+.md-typeset math[display="block"] {
+  display: block math;
+  margin: 1em 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* A numbered equation: the formula, then its number at the right. */
+.md-typeset .dcr-eq {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.md-typeset .dcr-eq math {
+  flex: 1;
+}
+
+.md-typeset .dcr-eqno {
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset code.dcr-param {
+  color: var(--md-accent-fg-color);
+}
+
+/* MUST, SHOULD, MAY. */
+.md-typeset .dcr-kw {
+  font-size: 0.9em;
+  letter-spacing: 0.03em;
+}
+
+.md-typeset .admonition.dcr-rule {
+  border-color: #2970ff;
+}
+
+.md-typeset .dcr-rule > .admonition-title {
+  background-color: rgba(41, 112, 255, 0.1);
+}
+
+.md-typeset .dcr-algorithm {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  padding: 0.4em 0;
+  margin: 1.2em 0;
+}
+
+.md-typeset .dcr-algorithm-title {
+  font-weight: 600;
+  margin: 0 0 0.4em;
+}
+
+.md-typeset .dcr-source {
+  text-align: right;
+  font-size: 0.7em;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset figure.dcr-table {
+  display: block;
+}
+
+/* The export fixes each diagram's height inline. */
+.md-typeset figure svg {
+  max-width: 100%;
+  height: auto !important;
+}
+
+/* The use of a network parameter, next to its name in the tables. */
+.md-typeset .dcr-usetag {
+  font-size: 0.7em;
+  letter-spacing: 0.04em;
+  color: var(--md-default-fg-color--light);
+}
+
+/* The pages are generated, so there is no source file here to edit. */
+.md-content__inner:has(.dcr-wp) .md-content__button {
+  display: none;
+}
+
+/* The diagrams are drawn in dark ink on a transparent ground. */
+[data-md-color-scheme="slate"] .md-typeset figure svg {
+  background: #fff;
+  border-radius: 4px;
+  padding: 0.5em;
+}
+
+/* Typst's syntax colours are chosen for a light ground. */
+[data-md-color-scheme="slate"] .md-typeset .dcr-wp pre > code {
+  background-color: #f5f5f5;
+  color: #1f2328;
+}

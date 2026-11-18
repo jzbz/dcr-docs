@@ -1,0 +1,94 @@
+name: docs
+
+# Builds the site on every pull request and on every push to master, and
+# deploys the master build to GitHub Pages. The deployment uploads the built
+# site as an artifact: nothing is committed to this repository or to a
+# gh-pages branch.
+#
+# One-time setup, in the repository settings, before the first push to
+# master (the first deployment fails if Pages is not enabled yet):
+#   Pages > Build and deployment > Source: GitHub Actions
+#   Pages > Custom domain: docs.dcr.pw
+#   Environments > github-pages > Deployment branches: master only
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('docs-pr-{0}', github.event.pull_request.number) || format('docs-{0}', github.ref) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-26.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The whitepaper is always built from the tip of its default branch.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: jzbz/dcr-whitepaper
+          path: whitepaper
+          persist-credentials: false
+
+      - id: typst
+        run: echo "version=$(cat .typst-version)" >> "$GITHUB_OUTPUT"
+
+      - uses: typst-community/setup-typst@00ad6338f0b34724ea002136bfb701a6c18585b0 # v5.3.2
+        with:
+          typst-version: ${{ steps.typst.outputs.version }}
+
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.13.9"
+          python-version: "3.14"
+          enable-cache: false
+
+      - run: uv sync --locked
+
+      - name: Build the whitepaper pages
+        run: scripts/build-whitepaper.sh
+
+      # The privacy plugin downloads the fonts the site serves itself. Keeping
+      # its downloads means a build does not depend on those hosts being up.
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/plugin/privacy
+          key: privacy-${{ hashFiles('zensical.toml', 'uv.lock') }}
+
+      - name: Build the site
+        run: uv run --locked zensical build --strict
+
+      - if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site
+
+      - if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: site-pr-${{ github.event.pull_request.number }}
+          path: site
+          retention-days: 7
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+    needs: build
+    runs-on: ubuntu-26.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
