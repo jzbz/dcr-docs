@@ -91,6 +91,25 @@ def raw_block(segment):
     return f'<div class="dcr-wp" markdown="0">\n{segment}\n</div>\n'
 
 
+def unlink_svg(chunk):
+    """Turn the links inside the SVG diagrams into plain groups.
+
+    Zensical's instant navigation assigns to `href` on every link of a page
+    it loads. On an SVG <a> that property is read-only, the assignment
+    throws, and no page loads from then on until the reader reloads.
+    """
+
+    def group(m):
+        transform = re.search(r'\stransform="[^"]*"', m.group(1))
+        return f"<g{transform.group(0) if transform else ''}>"
+
+    def unlink(svg):
+        svg = re.sub(r"<a\b([^>]*)>", group, svg.group(0))
+        return svg.replace("</a>", "</g>")
+
+    return re.sub(r"<svg\b.*?</svg>", unlink, chunk, flags=re.S)
+
+
 def to_markdown(chapter):
     out, pos = [], 0
     for m in HEADING.finditer(chapter):
@@ -140,6 +159,8 @@ def main():
     body = re.sub(
         r'<section role="doc-bibliography">(.*?)</section>', r"\1", body, flags=re.S
     )
+
+    body = unlink_svg(body)
 
     front, *chapters = re.split(r"(?=<h2[ >])", body)
     if not chapters:
